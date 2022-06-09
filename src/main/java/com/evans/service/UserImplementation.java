@@ -46,15 +46,15 @@ public class UserImplementation implements UserService, UserDetailsService {
     }
 
     @Override
-    public void addRoleToUserr(String username, String roleName) {
-UserEntity user=userRepo.findByUsername(username);
+    public void addRoleToUserr(String email, String roleName) {
+UserEntity user=userRepo.findByEmail(email);
 Role role=roleRepo.findByName(roleName);
 user.getRoles().add(role);
     }
 
     @Override
-    public UserEntity getUser(String username) {
-        return userRepo.findByUsername(username);
+    public UserEntity getUser(String email) {
+        return userRepo.findByEmail(email);
     }
 
     @Override
@@ -68,23 +68,23 @@ user.getRoles().add(role);
     }
 
     @Override
-    public void addBooksToUser(String username, String bookname) {
+    public void addBooksToUser(String email, String bookname) {
         BookEntity name=bookRepo.findByName(bookname);
-        UserEntity user=userRepo.findByUsername(username);
+        UserEntity user=userRepo.findByEmail(email);
         user.getBooks().add(name);
 
     }
 
     @Override
-    public void returnBook(String username, String bookname) {
+    public void returnBook(String email, String bookname) {
         BookEntity name=bookRepo.findByName(bookname);
-        UserEntity user=userRepo.findByUsername(username);
+        UserEntity user=userRepo.findByEmail(email);
         user.getBooks().remove(name);
     }
 
     @Override
-    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        UserEntity user=userRepo.findByUsername(username);
+    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+        UserEntity user=userRepo.findByEmail(email);
         if (user==null){
             log.error("User not found in the database");
             System.out.println("User not found in the database");
@@ -93,13 +93,13 @@ user.getRoles().add(role);
         }
         else
         {
-            log.info("User found in the database:{}",username);
+            log.info("User found in the database:{}",email);
         }
         Collection<SimpleGrantedAuthority> authorities=new ArrayList<>();
         user.getRoles().forEach(role -> {
             authorities.add(new SimpleGrantedAuthority(role.getName()));
         });
-        return new org.springframework.security.core.userdetails.User(user.getUsername(),user.getPassword(),authorities);
+        return new org.springframework.security.core.userdetails.User(user.getEmail(),user.getPassword(),authorities);
 
 
 

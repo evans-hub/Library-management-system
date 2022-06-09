@@ -12,10 +12,10 @@ public interface UserService {
     UserEntity saveUser(UserEntity user);
     Role saveRole(Role role);
     BookEntity saveBook(BookEntity book);
-    void addRoleToUserr(String username,String roleName);
-    UserEntity getUser(String username);
+    void addRoleToUserr(String email,String roleName);
+    UserEntity getUser(String email);
     List<UserEntity> listUsers();
     List<BookEntity> listBooks();
-    void addBooksToUser(String username,String bookname);
-    void returnBook(String username,String bookname);
+    void addBooksToUser(String email,String bookname);
+    void returnBook(String email,String bookname);
 }

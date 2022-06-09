@@ -38,7 +38,7 @@ public class Resource {
     }
     @PostMapping("/addroletouser")
     public ResponseEntity addRoleToUserr(@RequestBody RR rr){
-        userService.addRoleToUserr(rr.getUsername(),rr.getRoleName());
+        userService.addRoleToUserr(rr.getEmail(),rr.getRoleName());
         return ResponseEntity.ok().build();
 
     }
@@ -49,13 +49,13 @@ public class Resource {
     }
     @PostMapping("/addbooktouser")
     public ResponseEntity addBooksToUser(@RequestBody RR rr){
-        userService.addBooksToUser(rr.getUsername(),rr.getBookname());
+        userService.addBooksToUser(rr.getEmail(),rr.getBookname());
         return ResponseEntity.ok().build();
 
     }
     @PostMapping("/returnbook")
     public ResponseEntity returnBook(@RequestBody RR rr){
-        userService.returnBook(rr.getUsername(),rr.getBookname());
+        userService.returnBook(rr.getEmail(),rr.getBookname());
         return ResponseEntity.ok().build();
 
     }
@@ -70,4 +70,5 @@ class RR{
    private String username;
    private String roleName;
    private String bookname;
+   private String email;
 }
